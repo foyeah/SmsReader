@@ -1,4 +1,4 @@
-package net.example.smsreader
+package net.example.smsreader.presenter.sms_list
 
 import androidx.lifecycle.ViewModel
 

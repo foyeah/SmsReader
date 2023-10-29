@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/smsListFragment"
-        android:name="net.example.smsreader.SmsListFragment"
+        android:name="net.example.smsreader.presenter.sms_list.SmsListFragment"
         android:label="SmsListFragment" />
 </navigation>

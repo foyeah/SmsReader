@@ -1,7 +1,8 @@
-package net.example.smsreader
+package net.example.smsreader.presenter
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import net.example.smsreader.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
