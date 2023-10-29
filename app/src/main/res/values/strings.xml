@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SmsReader</string>
+    <string name="failed_load_title">Failed to load messages</string>
+    <string name="failed_load_description">You forbid \"Read SMS\" permission. It required to base app functionality. Please, grant it</string>
 </resources>

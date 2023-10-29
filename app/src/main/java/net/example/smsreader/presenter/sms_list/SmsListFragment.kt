@@ -34,8 +34,14 @@ class SmsListFragment : Fragment(R.layout.fragment_sms_list) {
             adapter.submitList(it)
         }
 
+        initializeUI()
         initializeRecycler()
         requireSmsPermission()
+    }
+
+    private fun initializeUI() {
+        initializeRecycler()
+        showFailureMessage(false)
     }
 
     private fun requireSmsPermission() {
@@ -45,9 +51,17 @@ class SmsListFragment : Fragment(R.layout.fragment_sms_list) {
                 viewModel.loadSmsMessages(requireContext().contentResolver)
             },
             failureDelegate = {
-
+                showFailureMessage(true)
             }
         )
+    }
+
+    private fun showFailureMessage(shown: Boolean) {
+        val visibility = if(shown) View.VISIBLE else View.GONE
+        binding.failSmsImageView.visibility = visibility
+        binding.failSmsTitle.visibility = visibility
+        binding.failSmsDescription.visibility = visibility
+        binding.smsListRecycler.visibility = if (shown) View.GONE else View.VISIBLE
     }
 
     private fun onChatItemClick(entry: SmsChatEntry) {
