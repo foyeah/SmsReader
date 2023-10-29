@@ -2,6 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" >
 
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+
+    <!--
+        Выше указываем на то, что технически нас интересует возможность получать
+        доступ до СМС на телефоне пользователя.
+        Время, когда запросим у пользователя пермишен, выберем самостоятельно.
+
+        P.S. Это Runtime-пермишен, то что мы его здесь укзаали не значит,
+        что нам его уже выдали.
+    -->
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
