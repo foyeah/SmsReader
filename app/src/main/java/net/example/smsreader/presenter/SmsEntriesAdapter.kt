@@ -11,14 +11,16 @@ import net.example.smsreader.R
 import net.example.smsreader.data.SmsChatEntry
 import net.example.smsreader.databinding.SmsChatEntryItemBinding
 
-class SmsEntriesAdapter : RecyclerView.Adapter<SmsEntriesAdapter.SmsEntryViewHolder>() {
+class SmsEntriesAdapter(
+    private val onItemClick: (SmsChatEntry) -> Unit,
+) : RecyclerView.Adapter<SmsEntriesAdapter.SmsEntryViewHolder>() {
 
     private val list = mutableListOf<SmsChatEntry>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SmsEntryViewHolder {
         val context = parent.context
         val layoutInflater = LayoutInflater.from(context)
         val binding = SmsChatEntryItemBinding.inflate(layoutInflater, parent, false)
-        return SmsEntryViewHolder(binding)
+        return SmsEntryViewHolder(binding, onItemClick)
     }
 
     override fun getItemCount(): Int =
@@ -34,6 +36,7 @@ class SmsEntriesAdapter : RecyclerView.Adapter<SmsEntriesAdapter.SmsEntryViewHol
 
     inner class SmsEntryViewHolder(
         private val binding: SmsChatEntryItemBinding,
+        private val onItemClick: (SmsChatEntry) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(entry: SmsChatEntry) = with(binding) {
             val context = binding.root.context
@@ -43,6 +46,10 @@ class SmsEntriesAdapter : RecyclerView.Adapter<SmsEntriesAdapter.SmsEntryViewHol
 
             smsSender.text = entry.address
             messageAgenda.text = entry.messages.first()
+
+            root.setOnClickListener {
+                onItemClick(entry)
+            }
         }
 
         private fun getRandomBackground(context: Context): Drawable? {
