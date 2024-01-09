@@ -43,15 +43,12 @@ class SmsEntriesAdapter(
         fun bind(entry: SmsChatEntry) = with(binding) {
             val context = binding.root.context
 
-            smsAvatar.background = getRandomBackground(context)
-            smsAvatar.text = entry.address.first().toString()
+            titleTextView.text = entry.address
 
-            smsSender.text = entry.address
-            messageAgenda.text = entry.messages.first()
+            val message = entry.messages.first()
 
-            root.setOnClickListener {
-                onItemClick(entry)
-            }
+            messageTextView.text = message.message
+            timeTextView.text = message.time
         }
 
         private fun getRandomBackground(context: Context): Drawable? {

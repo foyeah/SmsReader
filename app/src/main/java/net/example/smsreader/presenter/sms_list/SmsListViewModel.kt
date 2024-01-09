@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import net.example.smsreader.data.SmsChatEntry
+import net.example.smsreader.data.MessageEntry
 
 class SmsListViewModel: ViewModel() {
 
@@ -29,7 +30,10 @@ class SmsListViewModel: ViewModel() {
             do {
                 val address = cursor.getString(cursor.getColumnIndexOrThrow(Telephony.Sms.ADDRESS))
                 val body = cursor.getString(cursor.getColumnIndexOrThrow(Telephony.Sms.BODY))
-                result.list.add(address to body)
+                val time = cursor.getString(cursor.getColumnIndexOrThrow(Telephony.Sms.DATE))
+                val type = cursor.getInt(cursor.getColumnIndexOrThrow(Telephony.Sms.TYPE))
+                val isSent = type == Telephony.Sms.MESSAGE_TYPE_SENT
+                result.list.add(address to MessageEntry(body, timestampToString(time.toLong()), isSent))
             } while (cursor.moveToNext())
         }
 
@@ -37,12 +41,11 @@ class SmsListViewModel: ViewModel() {
 
         _chatMessageEntries.postValue(result.toSmsChatEntriesList())
     }
-
 }
 
 @JvmInline
 value class AddressAndMessageList(
-    val list: MutableList<Pair<String, String>>
+    val list: MutableList<Pair<String, MessageEntry>>
 ) {
     fun toSmsChatEntriesList(): List<SmsChatEntry> =
         list

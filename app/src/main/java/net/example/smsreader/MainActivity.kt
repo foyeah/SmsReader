@@ -1,4 +1,4 @@
-package net.example.smsreader.presenter
+package net.example.smsreader
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

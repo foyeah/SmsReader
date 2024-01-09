@@ -7,15 +7,6 @@
         android:required="false"/>
     <uses-permission android:name="android.permission.READ_SMS"/>
 
-    <!--
-        Выше указываем на то, что технически нас интересует возможность получать
-        доступ до СМС на телефоне пользователя.
-        Время, когда запросим у пользователя пермишен, выберем самостоятельно.
-
-        P.S. Это Runtime-пермишен, то что мы его здесь укзаали не значит,
-        что нам его уже выдали.
-    -->
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -27,7 +18,7 @@
         android:theme="@style/Theme.SmsReader"
         tools:targetApi="31" >
         <activity
-            android:name=".presenter.MainActivity"
+            android:name=".MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

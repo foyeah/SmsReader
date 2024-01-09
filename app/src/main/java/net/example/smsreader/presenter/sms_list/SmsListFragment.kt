@@ -1,13 +1,9 @@
 package net.example.smsreader.presenter.sms_list
 
 import android.Manifest.permission.READ_SMS
-import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -78,5 +74,4 @@ class SmsListFragment : Fragment(R.layout.fragment_sms_list) {
             )
         )
     }
-
 }
