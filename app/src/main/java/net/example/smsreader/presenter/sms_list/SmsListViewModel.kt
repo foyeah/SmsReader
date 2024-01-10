@@ -1,19 +1,27 @@
 package net.example.smsreader.presenter.sms_list
 
 import android.content.ContentResolver
+import android.os.Build
 import android.provider.Telephony
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import net.example.smsreader.data.SmsChatEntry
-import net.example.smsreader.data.MessageEntry
+import net.example.smsreader.data.ChatEntry
+import net.example.smsreader.data.SmsEntry
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class SmsListViewModel: ViewModel() {
 
-    private val _chatMessageEntries = MutableLiveData<List<SmsChatEntry>>()
-    val chatMessageEntries: LiveData<List<SmsChatEntry>>
+    private val _chatMessageEntries = MutableLiveData<List<ChatEntry>>()
+    val chatMessageEntries: LiveData<List<ChatEntry>>
         get() = _chatMessageEntries
-
 
     fun loadSmsMessages(contentResolver: ContentResolver) {
         val cursor = contentResolver.query( // Делаем запрос в системный ContentProvider
@@ -33,7 +41,7 @@ class SmsListViewModel: ViewModel() {
                 val time = cursor.getString(cursor.getColumnIndexOrThrow(Telephony.Sms.DATE))
                 val type = cursor.getInt(cursor.getColumnIndexOrThrow(Telephony.Sms.TYPE))
                 val isSent = type == Telephony.Sms.MESSAGE_TYPE_SENT
-                result.list.add(address to MessageEntry(body, timestampToString(time.toLong()), isSent))
+                result.list.add(address to SmsEntry(body, timestampToString(time.toLong()), isSent))
             } while (cursor.moveToNext())
         }
 
@@ -45,13 +53,13 @@ class SmsListViewModel: ViewModel() {
 
 @JvmInline
 value class AddressAndMessageList(
-    val list: MutableList<Pair<String, MessageEntry>>
+    val list: MutableList<Pair<String, SmsEntry>>
 ) {
-    fun toSmsChatEntriesList(): List<SmsChatEntry> =
+    fun toSmsChatEntriesList(): List<ChatEntry> =
         list
             .groupBy { it.first }
             .map {
                 val messages = it.value.map { it.second }
-                SmsChatEntry(it.key, messages)
+                ChatEntry(it.key, messages)
             }
 }

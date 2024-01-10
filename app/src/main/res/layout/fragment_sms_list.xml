@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/sms_chat_entry_item" />
+        tools:listitem="@layout/chat_entry_item" />
 
     <ImageView
         android:id="@+id/failSmsImageView"
