@@ -1,4 +1,4 @@
-package com.example.kotlin_sms.presenter.sms_list
+package net.example.smsreader.presenter.sms_list
 
 import android.Manifest
 import android.os.Bundle
@@ -11,16 +11,12 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import net.example.smsreader.R
-import net.example.smsreader.data.ChatEntry
 import net.example.smsreader.data.SmsEntry
-import net.example.smsreader.presenter.sms_list.SmsListClickListener
-import net.example.smsreader.presenter.sms_list.SmsListViewModel
-import net.example.smsreader.presenter.sms_list.SmsEntriesAdapter
+import net.example.smsreader.data.ChatEntry
 import net.example.smsreader.databinding.FragmentSmsListBinding
 import net.example.smsreader.requirePermission
 
 class SmsListFragment : Fragment(R.layout.fragment_sms_list), SmsListClickListener {
-
     private val binding: FragmentSmsListBinding by viewBinding()
     private val viewModel: SmsListViewModel by viewModels()
 
@@ -92,7 +88,7 @@ class SmsListFragment : Fragment(R.layout.fragment_sms_list), SmsListClickListen
     }
 
     override fun onSmsListItemClick(entry: ChatEntry) {
-        val direction = ChatFragmentDirections.actionSmsListFragmentToChatListFragment(smsListItem = entry)
+        val direction = SmsListFragmentDirections.actionSmsListFragmentToChatListFragment(smsList = entry)
         findNavController().navigate(direction)
     }
 }

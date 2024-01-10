@@ -3,28 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/chatListFragment">
+    app:startDestination="@id/smsListFragment">
 
+    <fragment
+        android:id="@+id/smsListFragment"
+        android:name="net.example.smsreader.presenter.sms_list.SmsListFragment"
+        android:label="SmsListFragment" >
+        <action
+            android:id="@+id/action_smsListFragment_to_chatListFragment"
+            app:destination="@id/chatListFragment">
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/chatListFragment"
         android:name="net.example.smsreader.presenter.chat_list.ChatListFragment"
         android:label="fragment_chat_list"
-        tools:layout="@layout/fragment_chat_list" >
-        <action
-            android:id="@+id/action_chatListFragment_to_SMSListFragment"
-            app:destination="@id/SMSListFragment">
-        </action>
-    </fragment>
-    <fragment
-        android:id="@+id/SMSListFragment"
-        android:name="net.example.smsreader.presenter.sms_list.SmsListFragment"
-        android:label="fragment_sms_list"
-        tools:layout="@layout/fragment_sms_list" >
+        tools:layout="@layout/fragment_chat_list">
         <argument
-            android:name="ChatEntry"
+            android:name="smsList"
             app:argType="net.example.smsreader.data.ChatEntry" />
-        <action
-            android:id="@+id/action_SMSListFragment_to_chatListFragment"
-            app:destination="@id/chatListFragment" />
     </fragment>
 </navigation>

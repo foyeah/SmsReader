@@ -3,15 +3,15 @@ package net.example.smsreader.presenter.chat_list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import net.example.smsreader.data.ChatEntry
 import net.example.smsreader.data.SmsEntry
+import net.example.smsreader.data.ChatEntry
 
 class ChatListViewModel : ViewModel() {
-    private val _messageEntries = MutableLiveData<List<SmsEntry>>()
+    private val _messageList = MutableLiveData<List<SmsEntry>>()
     val messageEntries: LiveData<List<SmsEntry>>
-        get() = _messageEntries
+        get() = _messageList
 
-    fun loadMessages(chatEntry: ChatEntry) {
-        _messageEntries.postValue(chatEntry.messages)
+    fun loadSmsMessages(chatEntryItem : ChatEntry) {
+        _messageList.postValue(chatEntryItem.messages)
     }
 }

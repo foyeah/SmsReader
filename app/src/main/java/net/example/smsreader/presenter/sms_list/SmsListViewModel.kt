@@ -1,21 +1,16 @@
 package net.example.smsreader.presenter.sms_list
 
 import android.content.ContentResolver
-import android.os.Build
 import android.provider.Telephony
-import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import net.example.smsreader.data.ChatEntry
 import net.example.smsreader.data.SmsEntry
-import java.text.SimpleDateFormat
+import net.example.smsreader.data.ChatEntry
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.util.Locale
 
 class SmsListViewModel: ViewModel() {
 
@@ -48,6 +43,21 @@ class SmsListViewModel: ViewModel() {
         cursor?.close() // cursor в результате всегда должен закрываться
 
         _chatMessageEntries.postValue(result.toSmsChatEntriesList())
+    }
+
+    private fun timestampToString(timestamp: Long) =
+        formatter.format(convertMillisToDateTime(timestamp))
+
+
+    private fun convertMillisToDateTime(millis: Long): LocalDateTime {
+        val instant = Instant.ofEpochMilli(millis)
+        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+    }
+
+    companion object {
+        private const val TIME_FORMAT = "HH:mm"
+        private val formatter =
+            DateTimeFormatter.ofPattern(TIME_FORMAT)
     }
 }
 

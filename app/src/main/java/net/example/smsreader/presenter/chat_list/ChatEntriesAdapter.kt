@@ -17,8 +17,7 @@ class ChatEntriesAdapter(
         return ChatEntryViewHolder(binding)
     }
 
-    override fun getItemCount(): Int =
-        list.size
+    override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ChatEntryViewHolder, position: Int) {
         holder.bind(list[position])
@@ -34,8 +33,6 @@ class ChatEntriesAdapter(
         private val binding: SmsEntryItemBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(entry: SmsEntry) = with(binding) {
-            val context = binding.root.context
-
             body.text = entry.message
 
             time.text = entry.time

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import net.example.smsreader.R
-import net.example.smsreader.data.SmsEntry
+import net.example.smsreader.data.ChatEntry
 import net.example.smsreader.databinding.FragmentChatListBinding
 import net.example.smsreader.requirePermission
 
@@ -25,21 +25,21 @@ class ChatListFragment : Fragment(R.layout.fragment_chat_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val smsEntry = args.SmsEntry
+        val smsList = args.smsList
 
         viewModel.messageEntries.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
 
         initializeRecycler()
-        requireSmsPermission(smsEntry)
+        requireSmsPermission(smsList)
     }
 
-    private fun requireSmsPermission(smsListItem : SmsEntry) {
+    private fun requireSmsPermission(chatEntry : ChatEntry) {
         requirePermission(
             permission = Manifest.permission.READ_SMS,
             successDelegate = {
-                viewModel.loadSmsMessages(smsListItem)
+                viewModel.loadSmsMessages(chatEntry)
             },
             failureDelegate = {
 
@@ -47,7 +47,7 @@ class ChatListFragment : Fragment(R.layout.fragment_chat_list) {
         )
     }
 
-    private fun initializeRecycler() = with(binding.SmsEntryRecycler) {
+    private fun initializeRecycler() = with(binding.messageListRecycler) {
         layoutManager = LinearLayoutManager(requireContext())
         (layoutManager as LinearLayoutManager).reverseLayout = true
         (layoutManager as LinearLayoutManager).stackFromEnd = false
