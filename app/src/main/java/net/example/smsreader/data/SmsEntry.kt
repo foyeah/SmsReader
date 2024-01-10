@@ -5,4 +5,3 @@ data class SmsEntry(
     val time: String,
     val isSent: Boolean
 )
-

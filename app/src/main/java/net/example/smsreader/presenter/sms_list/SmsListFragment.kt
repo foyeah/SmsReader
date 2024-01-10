@@ -61,16 +61,6 @@ class SmsListFragment : Fragment(R.layout.fragment_sms_list), SmsListClickListen
         binding.smsListRecycler.visibility = if (shown) View.GONE else View.VISIBLE
     }
 
-    private fun fillMockData() {
-        adapter.submitList(
-            listOf(
-                ChatEntry("Кто ты", listOf(SmsEntry("Hello world", "12:34", true))),
-                ChatEntry("ААААААААААА", listOf(SmsEntry("Bye namespace", "19:12", true))),
-                ChatEntry("OMG", listOf(SmsEntry("HIIIIIII!!!!!!", "11:34", true))),
-            )
-        )
-    }
-
     //Old version
     private fun onChatItemClick(entry: ChatEntry) {
         Toast.makeText(requireContext(), entry.address, Toast.LENGTH_SHORT).show()

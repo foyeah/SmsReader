@@ -6,3 +6,4 @@ data class ChatEntry(
     val address: String,
     val messages: List<SmsEntry>
 ): Serializable
+
